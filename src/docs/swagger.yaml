@@ -1,0 +1,222 @@
+openapi: '3.0.2'
+info:
+  version: 1.0.0
+  title: My Platform Api's
+servers:
+  - url: http://localhost:3000/api
+
+tags:
+  - name: Test
+    description: Operations related to Test
+
+paths:
+  /userTest-v1/test:
+    get:
+      summary: test api
+      operationId: testapi
+      tags:
+        - Test
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      getData:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CreateDataResponse'
+
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+    post:
+      summary: create data sample api
+      operationId: createData
+      tags:
+        - Test
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              username: 'neetesh'
+              email: 'neetesh.trivedi@yopmail.com'
+              password: 'user@123'
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
+                  description: Password of registered user
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      CreateDataResponse:
+                        $ref: '#/components/schemas/CreateDataResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+components:
+  parameters:
+    headerLanguage:
+      name: Accept-Language
+      in: header
+      required: true
+      schema:
+        type: string
+        default: en
+        enum:
+          - en
+          - ar
+    headerDeviceType:
+      name: X-MyApp-Device-Type
+      in: header
+      required: true
+      schema:
+        type: string
+        default: Linux
+        enum:
+          - Linux
+          - Window
+    headerPlatform:
+      name: X-MyApp-Platform
+      in: header
+      required: true
+      schema:
+        type: string
+        default: web
+        enum:
+          - web
+          - ios
+          - android
+    headerVersion:
+      name: X-MyApp-Version
+      in: header
+      required: true
+      schema:
+        type: string
+        default: 1.0.0
+        pattern: '^[\d]+\.[\d]+\.[\d]+$'
+    queryPerPage:
+      in: query
+      name: perPage
+      description: number of records per page
+      allowEmptyValue: false
+      required: false
+      schema:
+        type: integer
+    queryPage:
+      in: query
+      name: page
+      description: page number
+      allowEmptyValue: false
+      required: false
+      schema:
+        type: integer
+
+  schemas:
+    ApiResponse:
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: string
+        message:
+          type: string
+        data: {}
+    CreateDataResponse:
+      type: object
+      properties:
+        username:
+          type: string
+          example: 'neetesh'
+        email:
+          type: string
+          format: email
+          example: 'neetesh.trivedi@yopmail.com'
+        password:
+          type: string
+          description: 'Hashed password'
+          example: '$2b$10$imKCvSGoyARBfjwSoGxic.h0p.qLT2xnegeXVDf6yp6DfCQcAfjna'
+    User:
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+  securitySchemes:
+    ApiAccessKeyAuth:
+      type: apiKey
+      in: header
+      name: x-access
+      description: Access Token for authorization
+    ApiRefreshKeyAuth:
+      type: apiKey
+      in: header
+      name: x-refresh
+      description: Refresh Token for renewing access tokens
+
+  responses:
+    BadRequestError:
+      description: Request fails validation or doesn't meet all conditions for request
+      content:
+        application/json:
+          schema:
+            example:
+              success: 'fail'
+              message: 'Validation failed'
+              data: ''
+            allOf:
+              - $ref: '#/components/schemas/ApiResponse'
+              - type: object
+                properties:
+                  data:
+                    type: object
+                    nullable: true
+    NotFoundError:
+      description: Requested resource was not found
+    UnauthorizedError:
+      description: Access token is missing or invalid

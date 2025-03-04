@@ -1,0 +1,16 @@
+{
+  "API_RUN": "Api run successfully!",
+  "API_FAILED": "Api get failed!",
+  "SOMETHING_WORNG": "Something went worng!",
+  "INVALID_TOKEN": "Invalid token. Please log in again!",
+  "JWT_EXP": "Your token has expired! Please log in again.!",
+  "DB_DUPLICATE_ERROR": "Duplicate field value:",
+  "ANOTHER_MESSAGE": "Please use another value!",
+  "INVALID_INPUT": "Input is Invalid!",
+  "REQUIRED_FIELD": "The field '{field}' is required!!!!",
+  "FIELDS": {
+    "username": "Username",
+    "email": "Email",
+    "password": "Password"
+  }
+}

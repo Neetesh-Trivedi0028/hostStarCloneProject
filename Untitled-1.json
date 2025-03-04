@@ -1,0 +1,360 @@
+{
+  "_id": ObjectId,
+  "platformSettings": {
+    "platformName": "string",
+    "defaultLanguage": "string",
+    "defaultTimezone": "string",
+    "currency": "string",
+    "dateFormat": "string",
+    "timeFormat": "string",
+    "maintenanceMode": {
+      "enabled": "boolean",
+      "message": "string",
+      "scheduledAt": "date"
+    },
+    "cdnSettings": {
+      "provider": "string",
+      "url": "string",
+      "bandwidthLimit": "number"
+    }
+  },
+  "subscriptionSettings": {
+    "plans": [
+      {
+        "name": "string",
+        "price": "number",
+        "currency": "string",
+        "duration": "string",
+        "features": [
+          "string"
+        ],
+        "isActive": "boolean",
+        "discounts": {
+          "percentage": "number",
+          "validTill": "date"
+        }
+      }
+    ],
+    "freeTrial": {
+      "enabled": "boolean",
+      "duration": "number"
+    },
+    "regionalPricing": {
+      "enabled": "boolean",
+      "regions": [
+        {
+          "country": "string",
+          "price": "number",
+          "currency": "string"
+        }
+      ]
+    }
+  },
+  "contentModeration": {
+    "autoModeration": {
+      "enabled": "boolean",
+      "aiDetectionLevel": "string"
+    },
+    "reportingThreshold": "number",
+    "flaggingRules": [
+      {
+        "rule": "string",
+        "action": "string",
+        "severity": "string"
+      }
+    ],
+    "allowedContentFormats": [
+      "string"
+    ],
+    "contentApprovalWorkflow": {
+      "manualReview": "boolean",
+      "moderatorApprovalRequired": "boolean"
+    }
+  },
+  "userManagement": {
+    "rolePermissions": {
+      "superAdmin": [
+        "all"
+      ],
+      "admin": [
+        "manageUsers",
+        "approveContent"
+      ],
+      "moderator": [
+        "flagContent",
+        "removeContent"
+      ],
+      "studio": [
+        "uploadContent",
+        "manageMetadata"
+      ],
+      "user": [
+        "subscribe",
+        "watchContent"
+      ]
+    },
+    "accountSuspension": {
+      "autoBanThreshold": "number",
+      "banDuration": "string",
+      "appealAllowed": "boolean"
+    }
+  },
+  "financeSettings": {
+    "commissionRates": {
+      "studio": "number",
+      "platformShare": "number"
+    },
+    "payoutMethods": [
+      "PayPal",
+      "Bank Transfer"
+    ],
+    "minPayoutThreshold": "number",
+    "refundPolicy": {
+      "allowed": "boolean",
+      "daysLimit": "number"
+    }
+  },
+  "advertisementSettings": {
+    "adProviders": [
+      {
+        "name": "string",
+        "apiKey": "string",
+        "status": "boolean"
+      }
+    ],
+    "adRevenueSharing": {
+      "enabled": "boolean",
+      "studioShare": "number",
+      "platformShare": "number"
+    },
+    "adFormats": [
+      "pre-roll",
+      "mid-roll",
+      "banner"
+    ]
+  },
+  "securitySettings": {
+    "drmProtection": {
+      "enabled": "boolean",
+      "provider": "string"
+    },
+    "geoBlocking": {
+      "enabled": "boolean",
+      "restrictedCountries": [
+        "string"
+      ]
+    },
+    "twoFactorAuthentication": {
+      "enabled": "boolean",
+      "methods": [
+        "email",
+        "sms",
+        "authenticatorApp"
+      ]
+    }
+  },
+  "notificationSettings": {
+    "emailNotifications": {
+      "enabled": "boolean",
+      "templates": {
+        "subscriptionRenewal": "string",
+        "contentUpdate": "string"
+      }
+    },
+    "pushNotifications": {
+      "enabled": "boolean",
+      "frequency": "string"
+    }
+  },
+  "reportingAndAnalytics": {
+    "dataRetentionPolicy": {
+      "enabled": "boolean",
+      "retentionPeriod": "number"
+    },
+    "analyticsProviders": [
+      {
+        "name": "string",
+        "apiKey": "string",
+        "status": "boolean"
+      }
+    ]
+  }
+},
+{
+  "_id": ObjectId("65e45a12a8b9c92f3c12d34b"),
+  "platformSettings": {
+    "platformName": "MyStreamingPlatform",
+    "defaultLanguage": "en",
+    "defaultTimezone": "UTC",
+    "currency": "USD",
+    "dateFormat": "MM/DD/YYYY",
+    "timeFormat": "HH:mm:ss",
+    "maintenanceMode": {
+      "enabled": true,
+      "message": "We are currently under maintenance",
+      "scheduledEnd": "2025-03-10T12:00:00Z"
+    },
+    "cdnSettings": {
+      "provider": "AWS CloudFront",
+      "url": "https://cdn.mystreaming.com",
+      "bandwidthLimit": 5000
+    }
+  },
+  "subscriptionSettings": {
+    "plans": [
+      {
+        "name": "Basic",
+        "price": 9.99,
+        "currency": "USD",
+        "duration": "1 month",
+        "features": ["HD Streaming", "Single Device"],
+        "isActive": true,
+        "discounts": {
+          "percentage": 10,
+          "validTill": "2025-05-01T00:00:00Z"
+        }
+      },
+      {
+        "name": "Premium",
+        "price": 19.99,
+        "currency": "USD",
+        "duration": "1 month",
+        "features": ["4K Streaming", "Multiple Devices"],
+        "isActive": true,
+        "discounts": {
+          "percentage": 15,
+          "validTill": "2025-06-01T00:00:00Z"
+        }
+      }
+    ],
+    "freeTrial": {
+      "enabled": true,
+      "duration": 7
+    },
+    "regionalPricing": {
+      "enabled": true,
+      "regions": [
+        {
+          "country": "India",
+          "price": 5.99,
+          "currency": "INR"
+        },
+        {
+          "country": "Brazil",
+          "price": 7.99,
+          "currency": "BRL"
+        }
+      ]
+    }
+  },
+  "contentModeration": {
+    "autoModeration": {
+      "enabled": true,
+      "aiDetectionLevel": "high"
+    },
+    "reportingThreshold": 10,
+    "flaggingRules": [
+      {
+        "rule": "Hate Speech",
+        "action": "Remove",
+        "severity": "High"
+      },
+      {
+        "rule": "Spam",
+        "action": "Warn",
+        "severity": "Medium"
+      }
+    ],
+    "allowedContentFormats": ["mp4", "jpg", "png"],
+    "contentApprovalWorkflow": {
+      "manualReview": true,
+      "moderatorApprovalRequired": true
+    }
+  },
+  "userManagement": {
+    "rolePermissions": [
+      {
+        "role": "admin",
+        "permissions": ["manage_users", "edit_content", "view_reports"]
+      },
+      {
+        "role": "moderator",
+        "permissions": ["review_content", "ban_users"]
+      }
+    ],
+    "accountSuspension": {
+      "autoBanThreshold": 5,
+      "banDuration": "7 days",
+      "appealAllowed": true
+    }
+  },
+  "financeSettings": {
+    "commissionRates": {
+      "studio": 10,
+      "platformShare": 90
+    },
+    "payoutMethods": ["PayPal", "Bank Transfer"],
+    "minPayoutThreshold": 50,
+    "refundPolicy": {
+      "allowed": true,
+      "daysLimit": 7
+    }
+  },
+  "advertisementSettings": {
+    "adProviders": [
+      {
+        "name": "Google Ads",
+        "apiKey": "GOOGLE_ADS_API_KEY",
+        "status": true
+      }
+    ],
+    "adRevenueSharing": {
+      "enabled": true,
+      "studioShare": 70,
+      "platformShare": 30
+    },
+    "adFormats": ["pre-roll", "mid-roll", "banner"]
+  },
+  "securitySettings": {
+    "drmProtection": {
+      "enabled": true,
+      "provider": "Widevine"
+    },
+    "geoBlocking": {
+      "enabled": true,
+      "restrictedCountries": ["China", "Iran", "North Korea"]
+    },
+    "twoFactorAuthentication": {
+      "enabled": true,
+      "methods": ["email", "sms"]
+    }
+  },
+  "notificationSettings": {
+    "emailNotifications": {
+      "enabled": true,
+      "templates": {
+        "subscriptionRenewal": "Your subscription is about to renew",
+        "contentUpdate": "New content has been added"
+      }
+    },
+    "pushNotifications": {
+      "enabled": true,
+      "frequency": "daily"
+    }
+  },
+  "reportingAndAnalytics": {
+    "dataRetentionPolicy": {
+      "enabled": true,
+      "retentionPeriod": 365
+    },
+    "analyticsProviders": [
+      {
+        "name": "Google Analytics",
+        "apiKey": "GA_API_KEY",
+        "status": true
+      }
+    ]
+  },
+  "created": "2025-03-04T08:00:00Z",
+  "updated": "2025-03-04T10:00:00Z"
+}
