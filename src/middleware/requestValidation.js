@@ -25,7 +25,7 @@ const validateRequest = (validationSchema, dataToValidate = 'body') => {
             : errorMessage;
       }
       return res.status(400).send({
-        success: false,
+        success: 'fail',
         data: {},
         message: errorMessage,
       });

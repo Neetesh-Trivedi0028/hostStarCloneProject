@@ -8,6 +8,10 @@ servers:
 tags:
   - name: Test
     description: Operations related to Test
+  - name: Super Admins
+    description: Operations related to Super Admin
+  - name: Permission
+    description: Operations related to Permission
 
 paths:
   /userTest-v1/test:
@@ -94,6 +98,285 @@ paths:
                     properties:
                       CreateDataResponse:
                         $ref: '#/components/schemas/CreateDataResponse'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+  /permissions-v1/permission:
+    get:
+      summary: all managers with there available actions!
+      operationId: getpermissionApis
+      tags:
+        - Permission
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      getData:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/permissionCreated'
+
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+    post:
+      summary: create managers with their available actions!
+      operationId: createManagers
+      tags:
+        - Permission
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - slug
+                - action
+              properties:
+                name:
+                  type: string
+                  example: 'User Manager'
+                  description: 'The name of the permission role.'
+                slug:
+                  type: string
+                  pattern: '^[a-z0-9_]+$'
+                  example: 'user_manager'
+                  description: 'A unique slug for the permission role.'
+                action:
+                  type: array
+                  minItems: 1
+                  description: 'List of actions allowed for this permission.'
+                  items:
+                    type: object
+                    required:
+                      - name
+                      - slug
+                    properties:
+                      name:
+                        type: string
+                        example: 'create'
+                        description: 'The action name (e.g., create, edit, delete).'
+                      slug:
+                        type: string
+                        pattern: '^[a-z0-9_]+$'
+                        example: 'user_create'
+                        description: 'A unique slug for the action.'
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      permissionCreated:
+                        $ref: '#/components/schemas/permissionCreated'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+    put:
+      summary: create new action inside the managers to increase actions in managers!
+      operationId: addNewActionInManagers
+      tags:
+        - Permission
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - slug
+                - action
+              properties:
+                name:
+                  type: string
+                  example: 'User Manager'
+                  description: 'The name of the permission role.'
+                slug:
+                  type: string
+                  pattern: '^[a-z0-9_]+$'
+                  example: 'user_manager'
+                  description: 'A unique slug for the permission role.'
+                action:
+                  type: object # Changed from 'array' to 'object'
+                  required:
+                    - name
+                    - slug
+                  properties:
+                    name:
+                      type: string
+                      example: 'list'
+                      description: 'The action name (e.g., create, edit, delete).'
+                    slug:
+                      type: string
+                      pattern: '^[a-z0-9_]+$'
+                      example: 'user_list'
+                      description: 'A unique slug for the action.'
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      permissionCreated:
+                        $ref: '#/components/schemas/permissionCreated'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+  /superAdminProfile-v1/add:
+    get:
+      summary: get all admins and super admins
+      operationId: getSuperAdminAndAdmins
+      tags:
+        - Super Admins
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      getData:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/superAdminData'
+
+        400:
+          $ref: '#/components/responses/BadRequestError'
+
+    post:
+      summary: create data sample api
+      operationId: createData
+      tags:
+        - Super Admins
+      security:
+        - ApiAccessKeyAuth: []
+        - ApiRefreshKeyAuth: []
+      parameters:
+        - $ref: '#/components/parameters/headerLanguage'
+        - $ref: '#/components/parameters/headerDeviceType'
+        - $ref: '#/components/parameters/headerPlatform'
+        - $ref: '#/components/parameters/headerVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              name: 'neetesh'
+              email: 'neetesh.trivedi@yopmail.com'
+              password: 'user@123'
+              role: 'admin' # Set the role (e.g., 'admin', 'super_admin', 'moderator')
+              permissions:
+                - module: 'user_manager'
+                  actions:
+                    ['user_create', 'user_edit', 'user_view', 'user_list']
+                - module: 'admin_manager'
+                  actions:
+                    ['admin_create', 'admin_edit', 'admin_view', 'admin_create']
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+                - role # 'role' is required to define admin role
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
+                  description: Password of the registered user
+                role:
+                  type: string
+                  enum: ['super_admin', 'admin', 'moderator'] # Define enum values here
+                  description: Role of the user (must be one of 'super_admin', 'admin', or 'moderator')
+                permissions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      module:
+                        type: string
+                        description: Name of the module (e.g., 'userManagement', 'contentModeration')
+                      actions:
+                        type: array
+                        items:
+                          type: string
+                          enum: ['create', 'read', 'update', 'delete'] # List of valid actions
+      responses:
+        200:
+          description: here will be api response summary!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/ApiResponse'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      CreateDataResponse:
+                        $ref: '#/components/schemas/superAdminData'
         400:
           $ref: '#/components/responses/BadRequestError'
 
@@ -187,6 +470,98 @@ components:
         email:
           type: string
           format: email
+    permissionCreated:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'User Manager'
+          description: 'The name of the permission role.'
+        slug:
+          type: string
+          example: 'user_manager'
+          description: 'A unique slug for the permission role.'
+        action:
+          type: array
+          description: 'List of actions associated with this permission.'
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: '67c89df1a756955ca6776f8c'
+                description: 'Unique identifier for the action.'
+              name:
+                type: string
+                example: 'create'
+                description: 'The action name (e.g., create, edit, delete).'
+              slug:
+                type: string
+                example: 'user_create'
+                description: 'A unique slug for the action.'
+        createdAt:
+          type: string
+          format: date-time
+          example: '2025-03-05T18:54:41.748Z'
+          description: 'Timestamp when the permission was created.'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2025-03-05T18:54:41.748Z'
+          description: 'Timestamp when the permission was last updated.'
+    superAdminData:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'neetesh'
+        email:
+          type: string
+          format: email
+          example: 'neetesh.trivedi@yopmail.com'
+        password:
+          type: string
+          format: password
+          example: '$2b$10$cNrX4Owihc29ncSUeyrkJuS4xwye/gMts9Er8sko/G4xFGGZG8AmS'
+        role:
+          type: string
+          example: 'superadmin'
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        isActive:
+          type: boolean
+          example: true
+        reportsTo:
+          type: array
+          items:
+            type: string
+        _id:
+          type: string
+          example: '67c9f6f1d11621d3ece37c79'
+        created:
+          type: string
+          format: date-time
+          example: '2025-03-06T19:26:41.714Z'
+        updated:
+          type: string
+          format: date-time
+          example: '2025-03-06T19:26:41.714Z'
+        __v:
+          type: integer
+          example: 0
+    Permission:
+      type: object
+      properties:
+        module:
+          type: string
+          example: 'user_manager'
+        actions:
+          type: array
+          items:
+            type: string
+            example: 'full_access'
   securitySchemes:
     ApiAccessKeyAuth:
       type: apiKey

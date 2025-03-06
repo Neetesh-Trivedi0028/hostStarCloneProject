@@ -72,12 +72,6 @@ const SettingsSchema = new mongoose.Schema(
       },
     },
     userManagement: {
-      rolePermissions: [
-        {
-          role: { type: String, required: true },
-          permissions: [{ type: String }],
-        },
-      ],
       accountSuspension: {
         autoBanThreshold: { type: Number, default: 5 },
         banDuration: { type: String, default: '7 days' },
