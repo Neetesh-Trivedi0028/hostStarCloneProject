@@ -270,7 +270,7 @@ paths:
   /superAdminProfile-v1/add:
     get:
       summary: get all admins and super admins
-      operationId: getSuperAdminAndAdmins
+      operationId: getAdminDetails
       tags:
         - Super Admins
       security:

@@ -1,7 +1,7 @@
 import catchAsync from '../../utils/catchAsync.js';
-import Dao from '../../dao/superAdminDao.js';
+import Dao from '../../dao/testDao.js';
 
-class SuperAdminController {
+class PlatformSettingsController {
   getCreatedData = catchAsync(async (_req, res, _next) => {
     const getData = await Dao.getDataDao();
     res.status(200).json({
@@ -12,7 +12,7 @@ class SuperAdminController {
   });
 
   createData = catchAsync(async (req, res, _next) => {
-    const createData = await Dao.createAdminsDao(req.body);
+    const createData = await Dao.createDataDao(req.body);
     res.status(201).json({
       status: 'success',
       message: res.__('API_RUN'),
@@ -21,7 +21,7 @@ class SuperAdminController {
   });
 }
 
-export default new SuperAdminController();
+export default new PlatformSettingsController();
 
 // for reference
 
